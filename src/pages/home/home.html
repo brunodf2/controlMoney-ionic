@@ -18,9 +18,11 @@
     </ul>
 
     <h3>Ultimos Lançamentos</h3>
-    <ul>
-      <li>Gordinho: $ 55,00</li>
-      <li>Dona Zú: $ 30,00</li>
-    </ul>
+    <ol>
+      <li *ngFor="let dado of dados">
+        {{dado}}
+      </li>
+      
+    </ol>
 
 </ion-content>

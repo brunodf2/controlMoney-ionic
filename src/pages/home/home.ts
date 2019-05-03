@@ -9,6 +9,12 @@ import { SQLite, SQLiteObject } from "@ionic-native/sqlite";
   templateUrl: "home.html"
 })
 export class HomePage {
+    dados = [
+      'Gordinho: $50,00',
+      'Dona Zú: $160,00',
+      'Padaria: $10,00'
+    ]
+
   constructor(public navCtrl: NavController, public sqlite: SQLite) {}
 
   addEntry() {
