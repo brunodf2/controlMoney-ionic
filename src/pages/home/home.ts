@@ -9,20 +9,20 @@ import { SQLite, SQLiteObject } from "@ionic-native/sqlite";
   templateUrl: "home.html"
 })
 export class HomePage {
-    dados = [
-      'Gordinho: $50,00',
-      'Dona Zú: $160,00',
-      'Padaria: $10,00'
-    ]
+  entries = [];
 
   constructor(public navCtrl: NavController, public sqlite: SQLite) {}
+
+  ionViewDidEnter() {
+    this.loadData();
+  }
 
   addEntry() {
     console.log("Adicionar Lançamento");
     this.navCtrl.push(NewEntryPage);
   }
 
-  testeDb() {
+  loadData() {
     console.log("Inicio do teste DB");
 
     this.sqlite
@@ -39,8 +39,13 @@ export class HomePage {
 
           // Selecionar registros
           this.select(db).then((values: any) => {
+            let data;
+            this.entries = [];
+
             for (var i = 0; i < values.rows.length; i++) {
-              console.log(JSON.stringify(values.rows.item(i)));
+              data = values.rows.item(i);
+              console.log(JSON.stringify(data));
+              this.entries.push(data);
             }
 
             console.log("-------------------------");
