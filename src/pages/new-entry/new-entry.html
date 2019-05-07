@@ -9,11 +9,8 @@
     <ion-list>
 
       <ion-item>
-          <input type="tel"
-          name="amount"
-          formControlName="amount"
-          [(ngModel)]="entry.amount"
-          currencyMask [options]="{ prefix: '$ ', thousands: '.', decimal: ',' }"/>
+        <input type="tel" name="amount" formControlName="amount" [(ngModel)]="entry.amount" currencyMask
+          [options]="{ prefix: '$ ', thousands: '.', decimal: ',' }" />
       </ion-item>
       <ion-item class="error" no-lines
         *ngIf="entryForm.controls.amount.hasError('required') && entryForm.controls.amount.touched">
@@ -21,15 +18,16 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>Categoria</ion-label>
-        <ion-select name="category_id" formControlName="category_id" [(ngModel)]="entry.category_id">
+        <select name="category_id"
+          formControlName="category_id"
+          [(ngModel)]="entry.category_id">
 
-          <ion-option value="">Selecione uma opção</ion-option>
-          <ion-option value="1">Lazer</ion-option>
-          <ion-option value="2">Alimentação</ion-option>
-          <ion-option value="3">Casa</ion-option>
-          <ion-option value="4">Carro</ion-option>
-        </ion-select>
+          <option *ngFor="let category of categories"
+            [value]="category.id"
+            required>
+            {{category.name}}
+          </option>
+        </select>
       </ion-item>
       <ion-item class="error" no-lines
         *ngIf="entryForm.controls.category_id.hasError('required') && entryForm.controls.category_id.touched">

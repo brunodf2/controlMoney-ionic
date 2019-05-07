@@ -1,67 +1,81 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { EntryDaoProvider } from "./../../providers/entry-dao/entry-dao";
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from "@angular/forms";
 
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { DatabaseProvider } from "../../providers/database/database";
 
 @IonicPage()
 @Component({
-  selector: 'page-new-entry',
-  templateUrl: 'new-entry.html',
+  selector: "page-new-entry",
+  templateUrl: "new-entry.html"
 })
 export class NewEntryPage {
+  categories = [];
   entryForm: FormGroup;
 
-  entry = {}
+  entry = {};
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
-    public sqlite: SQLite,
-    private builder: FormBuilder) {
+    public database: DatabaseProvider,
+    public entryDao: EntryDaoProvider,
+    private builder: FormBuilder
+  ) {
+    this.entryForm = builder.group({
+      amount: new FormControl("", Validators.required),
+      category_id: new FormControl("", Validators.required)
+    });
+  }
 
-      this.entryForm = builder.group({
-        amount: new FormControl('', Validators.required),
-        category_id: new FormControl('', Validators.required),
-      });
-    }
-
-  ionViewDidLoad() { }
+  ionViewDidLoad() {
+    this.loadData();
+  }
 
   submitForm() {
-    console.log('Enviando dados..');
+    console.log("Enviando dados..");
     console.log(JSON.stringify(this.entry));
     this.insertBD();
     this.navCtrl.pop();
   }
 
   goBack() {
-    console.log('Cancelando...');
+    console.log("Cancelando...");
     this.navCtrl.pop();
   }
 
   insertBD() {
-    console.log('início da gravação do BD');
-
-    this.sqlite.create({
-      name: 'data.db',
-      location: 'default'
-    })
-    .then((db: SQLiteObject) => {
-      console.log('bd criado');
-
-      db.sqlBatch([
-        "CREATE TABLE IF NOT EXISTS entries (id INTEGER PRIMARY KEY AUTOINCREMENT, amount DECIMAL, description TEXT)"
-      ])
-      .then(() => {
-        const sql = "INSERT INTO entries (amount) VALUES (?)";
-        const data = [this.entry['amount']];
-
-        return db.executeSql(sql, data)
-          .then(() => console.log('insert realizado com sucesso'))
-          .catch(e => console.error('erro ao inserir na tabela', JSON.stringify(e)));
-      })
-      .catch(e => console.error('erro ao criar a tabela', JSON.stringify(e)));
+    this.entryDao.insert(this.entry).then(() => {
+      console.log("Registro inserido");
     });
   }
-}
 
+  loadData() {
+    console.log("Início do Teste DB");
+
+    const sql = "SELECT * FROM categories;";
+    const data = [];
+
+    return this.database.db
+      .executeSql(sql, data)
+      .then((values: any) => {
+        let data;
+        this.categories = [];
+
+        for (var i = 0; i < values.rows.length; i++) {
+          data = values.rows.item(i);
+          console.log(JSON.stringify(data));
+          this.categories.push(data);
+        }
+      })
+      .catch(e =>
+        console.error("erro ao selecionar registros", JSON.stringify(e))
+      );
+  }
+}
