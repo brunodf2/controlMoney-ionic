@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { NavController } from "ionic-angular";
 
 import { NewEntryPage } from "../new-entry/new-entry";
-import { DatabaseProvider } from "../../providers/database/database";
+import { AccountProvider } from "../../providers/account/account";
 
 @Component({
   selector: "page-home",
@@ -11,10 +11,7 @@ import { DatabaseProvider } from "../../providers/database/database";
 export class HomePage {
   entries = [];
 
-  constructor(
-    public navCtrl: NavController,
-    public database: DatabaseProvider
-  ) {}
+  constructor(public navCtrl: NavController, public account: AccountProvider) {}
 
   ionViewDidEnter() {
     this.loadData();
@@ -26,25 +23,15 @@ export class HomePage {
   }
 
   loadData() {
-    console.log("Início do Teste DB");
+    this.account.allEntries().then((values: any) => {
+      let data;
+      this.entries = [];
 
-    const sql = "SELECT * FROM entries;";
-    const data = [];
-
-    return this.database.db
-      .executeSql(sql, data)
-      .then((values: any) => {
-        let data;
-        this.entries = [];
-
-        for (var i = 0; i < values.rows.length; i++) {
-          data = values.rows.item(i);
-          console.log(JSON.stringify(data));
-          this.entries.push(data);
-        }
-      })
-      .catch(e =>
-        console.error("erro ao selecionar registros", JSON.stringify(e))
-      );
+      for (var i = 0; i < values.rows.length; i++) {
+        data = values.rows.item(i);
+        console.log(JSON.stringify(data));
+        this.entries.push(data);
+      }
+    });
   }
 }

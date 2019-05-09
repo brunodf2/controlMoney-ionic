@@ -1,3 +1,4 @@
+import { CategoryDaoProvider } from "./../../providers/category-dao/category-dao";
 import { EntryDaoProvider } from "./../../providers/entry-dao/entry-dao";
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
@@ -9,6 +10,7 @@ import {
 } from "@angular/forms";
 
 import { DatabaseProvider } from "../../providers/database/database";
+import { AccountProvider } from "../../providers/account/account";
 
 @IonicPage()
 @Component({
@@ -24,8 +26,8 @@ export class NewEntryPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public database: DatabaseProvider,
-    public entryDao: EntryDaoProvider,
+    public categoryDao: CategoryDaoProvider,
+    public account: AccountProvider,
     private builder: FormBuilder
   ) {
     this.entryForm = builder.group({
@@ -51,31 +53,12 @@ export class NewEntryPage {
   }
 
   insertBD() {
-    this.entryDao.insert(this.entry).then(() => {
-      console.log("Registro inserido");
-    });
+    this.account
+      .addEntry(this.entry["amount"], this.entry["category_id"])
+      .then(() => console.log("Registro inserido"));
   }
 
   loadData() {
-    console.log("Início do Teste DB");
-
-    const sql = "SELECT * FROM categories;";
-    const data = [];
-
-    return this.database.db
-      .executeSql(sql, data)
-      .then((values: any) => {
-        let data;
-        this.categories = [];
-
-        for (var i = 0; i < values.rows.length; i++) {
-          data = values.rows.item(i);
-          console.log(JSON.stringify(data));
-          this.categories.push(data);
-        }
-      })
-      .catch(e =>
-        console.error("erro ao selecionar registros", JSON.stringify(e))
-      );
+    this.categoryDao.getAll().then((data: any[]) => (this.categories = data));
   }
 }

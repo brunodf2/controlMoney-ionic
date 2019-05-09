@@ -12,6 +12,8 @@ import { HomePage } from '../pages/home/home';
 import { NewEntryPageModule } from "../pages/new-entry/new-entry.module";
 import { DatabaseProvider } from '../providers/database/database';
 import { EntryDaoProvider } from '../providers/entry-dao/entry-dao';
+import { CategoryDaoProvider } from '../providers/category-dao/category-dao';
+import { AccountProvider } from '../providers/account/account';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { EntryDaoProvider } from '../providers/entry-dao/entry-dao';
     SQLite,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DatabaseProvider,
-    EntryDaoProvider
+    EntryDaoProvider,
+    CategoryDaoProvider,
+    AccountProvider
   ]
 })
 export class AppModule {}
