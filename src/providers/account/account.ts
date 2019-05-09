@@ -14,7 +14,7 @@ export class AccountProvider {
   {
     this.loadBalance();
   }
-
+  // Adiciona um novo lançamento
   addEntry(amount, categoryId) {
     this.balance += Number(amount);
 
@@ -22,7 +22,16 @@ export class AccountProvider {
       .insert(amount, categoryId)
       .then(() => console.log("new entry add"));
   }
+  // Retorna o saldo atual
+  currentBalance() {
+    return this.balance;
+  }
 
+  allEntries() {
+    return this.entryDao.getAll();
+  }
+
+  // Calcula o saldo no momento de inicializar a classe 
   private loadBalance() {
     this.entryDao
       .getBalance()
