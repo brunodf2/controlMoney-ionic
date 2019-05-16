@@ -1,27 +1,9 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Control Money
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content>
 
-<ion-content padding>
-  <h1>Saldo: $ 3.200,00</h1>
-  <button (click)="addEntry()">Adicionar</button>
-  <!-- <button (click)="addData()">Dados</button> -->
+  <balance-panel [currentBalance]="currentBalance"></balance-panel>
 
-  <h3>Categoria</h3>
-  <ul>
-    <li>Alimentação: $ 130,00</li>
-    <li>Combustivel: $ 50,00 </li>
-  </ul>
+  <entry-sumary></entry-sumary>
 
-  <h3>Últimos Lançamentos</h3>
-  <ol>
-    <li *ngFor="let entry of entries">
-      {{entry.description}}: {{ entry.amount | currency }}
-    </li>
-  </ol>
+  <entry-list [entries]="entries" ></entry-list>
 
 </ion-content>

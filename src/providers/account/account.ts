@@ -1,7 +1,6 @@
-import { CategoryDaoProvider } from "./../category-dao/category-dao";
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { EntryDaoProvider } from "../entry-dao/entry-dao";
+import { Injectable } from '@angular/core';
+import { EntryDaoProvider } from '../entry-dao/entry-dao';
+import { CategoryDaoProvider } from '../category-dao/category-dao';
 
 @Injectable()
 export class AccountProvider {
@@ -9,19 +8,29 @@ export class AccountProvider {
 
   constructor(
     public entryDao: EntryDaoProvider,
-    public categoryDao: CategoryDaoProvider
-  ) 
-  {
-    this.loadBalance();
+    public categoryDao: CategoryDaoProvider) { }
+
+  // Calcula o saldo inicial
+  loadBalance() {
+    console.log('load balance');
+
+    return this.entryDao
+      .getBalance()
+        .then((balance) => {
+          this.balance = Number(balance)
+          return this.balance;
+        });
   }
+
   // Adiciona um novo lançamento
   addEntry(amount, categoryId) {
     this.balance += Number(amount);
 
     return this.entryDao
       .insert(amount, categoryId)
-      .then(() => console.log("new entry add"));
+        .then(() => console.log('new entry added'));
   }
+
   // Retorna o saldo atual
   currentBalance() {
     return this.balance;
@@ -29,12 +38,5 @@ export class AccountProvider {
 
   allEntries() {
     return this.entryDao.getAll();
-  }
-
-  // Calcula o saldo no momento de inicializar a classe 
-  private loadBalance() {
-    this.entryDao
-      .getBalance()
-      .then((balance: any) => (this.balance = Number(balance)));
   }
 }

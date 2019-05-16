@@ -1,0 +1,16 @@
+<ion-card>
+    <ion-card-header>
+      Lançamentos
+    </ion-card-header>
+   <ion-list >
+ 
+   </ion-list>
+  </ion-card>
+
+
+<h3>Últimos Lançamentos</h3>
+<ol>
+  <li *ngFor="let entry of entries">
+    {{entry.description}}: {{ entry.amount | currency }}
+  </li>
+</ol>

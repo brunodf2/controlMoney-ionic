@@ -1,37 +1,47 @@
-import { Component } from "@angular/core";
-import { NavController } from "ionic-angular";
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 
-import { NewEntryPage } from "../new-entry/new-entry";
-import { AccountProvider } from "../../providers/account/account";
+import { NewEntryPage } from '../new-entry/new-entry';
+import { AccountProvider } from '../../providers/account/account';
 
 @Component({
-  selector: "page-home",
-  templateUrl: "home.html"
+  selector: 'page-home',
+  templateUrl: 'home.html'
 })
 export class HomePage {
   entries = [];
+  currentBalance = 0;
 
-  constructor(public navCtrl: NavController, public account: AccountProvider) {}
+  constructor(
+    public navCtrl: NavController,
+    public account: AccountProvider) { }
 
   ionViewDidEnter() {
     this.loadData();
   }
 
   addEntry() {
-    console.log("Adicionar lançamento");
     this.navCtrl.push(NewEntryPage);
   }
 
-  loadData() {
-    this.account.allEntries().then((values: any) => {
-      let data;
-      this.entries = [];
+  private loadData() {
+    this.loadBalance();
+    this.loadEntries();
+  }
 
-      for (var i = 0; i < values.rows.length; i++) {
-        data = values.rows.item(i);
-        console.log(JSON.stringify(data));
-        this.entries.push(data);
-      }
-    });
+  // Carrega o saldo atual (antes feito no contructor da classe)
+  private loadBalance() {
+    this.account
+      .loadBalance()
+        .then((balance) => this.currentBalance = balance);
+  }
+
+  // Carrega os lançamentos
+  private loadEntries() {
+    this.account
+      .allEntries()
+        .then((data: any) => {
+          this.entries = data;
+        });
   }
 }
