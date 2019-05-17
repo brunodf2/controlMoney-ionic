@@ -81,6 +81,20 @@ $list-md-activated-background-color: lighten(color($colors, asphalt), 4%);
 $list-md-header-color:               color($colors, white);
 $list-md-text-color:                 color($colors, white);
 
+$item-md-paragraph-text-color: lighten(color($colors, asphalt), 30%);
+
+$label-md-text-color: color($colors, white);
+
+$text-input-md-background-color:       color($colors, asphalt);
+$text-input-md-input-clear-icon-color: color($colors, white);
+// $text-input-md-margin-bottom:          2rem;
+$text-input-md-highlight-color-valid:  transparent;
+$text-input-md-highlight-color-invalid:  transparent;
+
+$toolbar-md-padding:      20px 0;
+$toolbar-md-background:   $background-color;
+$toolbar-md-border-color: $background-color;
+
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here

@@ -20,9 +20,7 @@ export class HomePage {
     this.loadData();
   }
 
-  addEntry() {
-    this.navCtrl.push(NewEntryPage);
-  }
+
 
   private loadData() {
     this.loadBalance();

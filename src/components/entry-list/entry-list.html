@@ -1,16 +1,16 @@
 <ion-card>
-    <ion-card-header>
-      Lançamentos
-    </ion-card-header>
-   <ion-list >
- 
-   </ion-list>
+    <ion-card-header>Últimos Lançamentos</ion-card-header>
+    <ion-list>
+  
+      <button ion-item *ngFor="let entry of entries" [ngClass]="{'show-line': entries.length > 1, 'green': true}">
+        <h2>Descrição {{ entry.description }}</h2>
+        <p>
+          <ion-icon name="time"></ion-icon>17/05 11:00
+          <ion-icon name="pin"></ion-icon>Ceilândia, QNN 34
+        </p>
+        <ion-note item-end>{{ entry.amount | currency }}</ion-note>
+      </button>
+  
+    </ion-list>
   </ion-card>
-
-
-<h3>Últimos Lançamentos</h3>
-<ol>
-  <li *ngFor="let entry of entries">
-    {{entry.description}}: {{ entry.amount | currency }}
-  </li>
-</ol>
+  
