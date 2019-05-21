@@ -13,6 +13,7 @@ import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
 
 import { NewEntryPageModule } from "../pages/new-entry/new-entry.module";
+import { ReportPageModule } from "../pages/report/report.module";
 import { DatabaseProvider } from "../providers/database/database";
 import { EntryDaoProvider } from "../providers/entry-dao/entry-dao";
 import { CategoryDaoProvider } from "../providers/category-dao/category-dao";
@@ -26,6 +27,7 @@ import { ComponentsModule } from "../components/components.module";
     ComponentsModule,
     BrowserModule,
     NewEntryPageModule,
+    ReportPageModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],

@@ -1,22 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, Input } from "@angular/core";
+import { NavController } from "ionic-angular";
+import { ReportPage } from "../../pages/report/report";
 
-/**
- * Generated class for the EntrySumaryComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
-  selector: 'entry-sumary',
-  templateUrl: 'entry-sumary.html'
+  selector: "entry-sumary",
+  templateUrl: "entry-sumary.html"
 })
 export class EntrySumaryComponent {
+  @Input() entries = [];
+  @Input() showActions = false;
 
-  text: string;
+  constructor(public navCtrl: NavController) {}
 
-  constructor() {
-    console.log('Hello EntrySumaryComponent Component');
-    this.text = 'Hello World';
+  showReport() {
+    this.navCtrl.push(ReportPage);
   }
-
 }

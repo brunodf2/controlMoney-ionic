@@ -1,9 +1,9 @@
 <ion-content>
 
-  <balance-panel [currentBalance]="currentBalance"></balance-panel>
+  <balance-panel [currentBalance]="currentBalance" [entries]="entriesByDate"></balance-panel>
 
-  <entry-sumary></entry-sumary>
+  <entry-sumary [entries]="entriesByCategory" [showActions]="true"></entry-sumary>
 
-  <entry-list [entries]="entries" ></entry-list>
+  <entry-list [entries]="entries" [showActions]="true"></entry-list>
 
 </ion-content>
