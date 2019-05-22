@@ -7,7 +7,9 @@ import { StatusBar } from "@ionic-native/status-bar";
 import { IonicStorageModule } from "@ionic/storage";
 
 import { SQLite } from "@ionic-native/sqlite";
+import { DatePicker } from "@ionic-native/date-picker/ngx";
 import { SQLitePorter } from "@ionic-native/sqlite-porter/ngx";
+
 
 import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
@@ -38,12 +40,14 @@ import { ComponentsModule } from "../components/components.module";
     StatusBar,
     SplashScreen,
     SQLite,
+    DatePicker,
     SQLitePorter,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     DatabaseProvider,
     EntryDaoProvider,
     CategoryDaoProvider,
-    AccountProvider
+    AccountProvider,
+    
   ]
 })
 export class AppModule {}
