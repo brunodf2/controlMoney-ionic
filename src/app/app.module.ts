@@ -8,7 +8,7 @@ import { IonicStorageModule } from "@ionic/storage";
 
 import { SQLite } from "@ionic-native/sqlite";
 import { DatePicker } from "@ionic-native/date-picker/ngx";
-import { SQLitePorter } from "@ionic-native/sqlite-porter/ngx";
+
 
 
 import { MyApp } from "./app.component";
@@ -41,7 +41,6 @@ import { ComponentsModule } from "../components/components.module";
     SplashScreen,
     SQLite,
     DatePicker,
-    SQLitePorter,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     DatabaseProvider,
     EntryDaoProvider,

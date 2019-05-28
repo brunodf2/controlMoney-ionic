@@ -86,7 +86,6 @@
     <allow-navigation href="http://192.168.157.2:8100" sessionid="9df2424b" />
     <allow-navigation href="http://192.168.56.1:8100" sessionid="4081f5ee" />
     <plugin name="uk.co.workingedge.cordova.plugin.sqliteporter" spec="1.1.0" />
-    <engine name="android" spec="^7.1.4" />
     <engine name="browser" spec="5.0.4" />
     <allow-navigation href="http://192.168.230.2:8100" sessionid="0530368a" />
 </widget>

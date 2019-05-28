@@ -29,7 +29,7 @@
     "@ionic/storage": "2.2.0",
     "chart.js": "^2.8.0",
     "cordova": "^9.0.0",
-    "cordova-android": "^7.1.4",
+    "cordova-android": "8.0.0",
     "cordova-browser": "5.0.4",
     "cordova-plugin-datepicker": "0.9.3",
     "cordova-plugin-device": "^2.0.2",
@@ -68,7 +68,6 @@
       "cordova-plugin-datepicker": {}
     },
     "platforms": [
-      "android",
       "browser"
     ]
   }
